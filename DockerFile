@@ -1,12 +1,19 @@
-FROM python:3.10.10
+FROM gcr.io/gcp-runtimes/ubuntu_20_0_4
 
-# Copy app folder which contains logic to serve predictions
-COPY ./app /app
-
-WORKDIR /app
-
-# Install the requirements
-RUN pip install -r requirements.txt
-
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "1"]
-EXPOSE 8080
+RUN apt-get -y update && \
+    apt-get -y install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        make \
+        software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+        gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) \
+        signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+        https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
+    apt-get -y update && \
+    apt-get -y dist-upgrade && \
+    apt-get autoremove && \
+    apt-get clean
