@@ -1,5 +1,5 @@
 FROM python:3.10.10
-#This is sample docker image
+
 # Copy app folder which contains logic to serve predictions
 COPY ./app /app
 
