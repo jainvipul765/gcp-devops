@@ -1,7 +1,7 @@
 steps:
   - name: docker
-    args: ['build',  '-t', 'gcr.io/$_PROJECT_ID/my-gcp-project', '.']
+    args: ['build',  '-t', 'gcr.io/$_PROJECT_ID/mygcpproject', '.']
 images: 
-- 'gcr.io/$_PROJECT_ID/my-gcp-project' 
+- 'gcr.io/$_PROJECT_ID/mygcpproject' 
 options:
   logging: CLOUD_LOGGING_ONLY
